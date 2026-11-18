@@ -79,32 +79,33 @@ input{font:inherit;width:100%;padding:9px 12px;border-radius:12px;border:1px sol
 </main>
 
 <script>
-const COINS=[{id:'bitcoin',s:'BTC',p:78000},{id:'ethereum',s:'ETH',p:2900},{id:'solana',s:'SOL',p:157}];
+const COINS=[{id:'bitcoin',s:'BTC',p:78000},{id:'ethereum',s:'ETH',p:2900},{id:'solana',s:'SOL',p:157},{id:'ripple',s:'XRP',p:2.1}];
 const START=10,SIZE=3,MAXOPEN=3,SL=1,TP=2;
 const KEY='cbt-v2';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-const fresh=()=>({cash:START,pos:[],hist:[],msgs:[],bots:[]});
+const fresh=()=>({cash:START,pos:[],hist:[],msgs:[],bots:[],seen:[]});
 let S=Object.assign(fresh(),load()||{});
-const price={},px={},sen={},trend={},eqH=[];
+const price={},px={},sen={},trend={},eqH=[],chg24={};
 COINS.forEach(c=>{price[c.id]=c.p;px[c.id]=[c.p];sen[c.id]=0;trend[c.id]=0});
 let live=false,running=false,n=0,unread=0,resetArm=false,tab='v1';
 
 const eur=v=>v.toLocaleString('de-DE',{style:'currency',currency:'EUR'});
-const pr=v=>v.toLocaleString('de-DE',{minimumFractionDigits:v<1000?2:0,maximumFractionDigits:v<1000?2:0})+' €';
+const pr=v=>{const d=v<10?4:v<1000?2:0;return v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d})+' €'};
 const pc=v=>(v>=0?'+':'')+v.toFixed(2).replace('.',',')+' %';
 const sym=id=>COINS.find(c=>c.id===id).s;
 const now=()=>new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
 
-function say(title,text){S.msgs.unshift({t:now(),title,text});S.msgs=S.msgs.slice(0,40);if(tab!=='v3')unread++;save()}
+function say(title,text,u){S.msgs.unshift({t:now(),title,text,u});S.msgs=S.msgs.slice(0,40);if(tab!=='v3')unread++;save()}
 
 async function fetchLive(){
   try{
-    const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=eur');
+    const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=eur&include_24hr_change=true');
     const j=await r.json();
-    COINS.forEach(c=>{price[c.id]=j[c.id].eur;px[c.id].push(price[c.id])});
+    if(!live)COINS.forEach(c=>{px[c.id]=[]});
+    COINS.forEach(c=>{price[c.id]=j[c.id].eur;chg24[c.id]=j[c.id].eur_24h_change;px[c.id].push(price[c.id])});
     return true;
   }catch(e){return false}
 }
@@ -118,7 +119,41 @@ function walk(){
 const val=p=>{const cur=price[p.id];return p.size*(1+p.dir*(cur/p.entry-1))};
 const equity=()=>S.cash+S.pos.reduce((a,p)=>a+val(p),0);
 
-function bot2(){ // News-Bot (Demo): verändert die Stimmung pro Coin
+const NAMES={BTC:['btc','bitcoin'],ETH:['eth','ethereum','ether'],SOL:['sol','solana'],XRP:['xrp','ripple']};
+const POS=['surge','rally','gain','soar','bull','approve','adopt','record','inflow','jump','rise','upgrade','partnership'];
+const NEG=['drop','crash','plunge','bear','hack','ban','lawsuit','sell-off','selloff','fall','slump','outflow','exploit','fraud'];
+const score=t=>{t=t.toLowerCase();return POS.filter(w=>t.includes(w)).length-NEG.filter(w=>t.includes(w)).length};
+async function news(){
+  try{
+    const r=await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN');
+    const j=await r.json();
+    let sent=0;
+    for(const a of j.Data){
+      if(sent>=3)break;
+      if(S.seen.includes(a.id)||a.published_on*1000<Date.now()-864e5)continue;
+      const txt=(a.title+' '+(a.categories||'')).toLowerCase();
+      const c=COINS.find(k=>NAMES[k.s].some(w=>new RegExp('\\b'+w+'\\b').test(txt)));
+      if(!c)continue;
+      S.seen.push(a.id);sent++;
+      sen[c.id]=Math.max(-1,Math.min(1,sen[c.id]*.7+score(a.title)*.3));
+      say('Bot 2 (News)',c.s+': '+a.title,/^https:/.test(a.url)?a.url:'');
+    }
+    S.seen=S.seen.slice(-150);
+  }catch(e){}
+}
+function market(){
+  const ch=COINS.filter(c=>chg24[c.id]!=null);
+  if(!ch.length)return;
+  const avg=ch.reduce((a,c)=>a+chg24[c.id],0)/ch.length;
+  const w=avg>1?'freundlich':avg<-1?'schwach':'eher seitwärts';
+  say('Bot 2 (Marktlage)','Der Markt läuft '+w+': '+ch.map(c=>c.s+' '+pc(chg24[c.id])).join(', ')+' in 24 Stunden.');
+}
+function bot2(){ // News-Bot: live = echte Nachrichten, sonst Demo
+  if(live){
+    if(n%150===1)news();
+    if(n%300===2)market();
+    return;
+  }
   if(n%8)return;
   const c=COINS[Math.floor(Math.random()*COINS.length)];
   const d=(Math.random()-.5)*1.2;
@@ -170,8 +205,8 @@ function render(){
   }).join('');
   $('src').textContent=live?'Live-Kurse von CoinGecko':'Demo-Kurse (simuliert), echte Kurse laufen nur, wenn die Datei auf deinem Gerät oder einer eigenen Seite geöffnet wird';
   const bots=[
-    {n:'Bot 1: Kerzen',t:'Sucht Long- und Short-Chancen im Kursverlauf (BTC, ETH, SOL)',on:running},
-    {n:'Bot 2: News',t:'Bewertet die Stimmung und gibt Bot 1 Hinweise (noch Demo)',on:running}
+    {n:'Bot 1: Kerzen',t:'Sucht Long- und Short-Chancen im Kursverlauf (BTC, ETH, SOL, XRP)',on:running},
+    {n:'Bot 2: News',t:live?'Liest echte Krypto-Nachrichten, meldet die Marktlage und gibt Bot 1 Hinweise':'Bewertet die Stimmung und gibt Bot 1 Hinweise (noch Demo)',on:running}
   ].concat(S.bots.map(b=>({n:esc(b),t:'Wartet auf seine Aufgabe, die legen wir als Nächstes fest',on:false})));
   $('bots').innerHTML=bots.map(b=>'<div class="row"><div><b><span class="dot'+(b.on?' on':'')+'"></span>'+b.n+'</b><div class="sub">'+b.t+'</div></div></div>').join('');
   $('open').innerHTML=S.pos.length?S.pos.map(p=>{
@@ -180,7 +215,7 @@ function render(){
     '<div class="lv"><div><small>Einstieg</small>'+pr(p.entry)+'</div><div><small>Stop-Loss</small><span class="down">'+pr(p.sl)+'</span></div><div><small>Take-Profit</small><span class="up">'+pr(p.tp)+'</span></div></div></div>';
   }).join(''):'<div class="empty">Keine offene Position. Starte die Bots, dann suchen sie nach Chancen.</div>';
   $('closed').innerHTML=S.hist.length?S.hist.map(h=>'<div class="row"><span><b>'+sym(h.id)+'</b> '+(h.dir>0?'Long':'Short')+'</span><span class="'+(h.pnl>=0?'up':'down')+'">'+(h.pnl>=0?'+':'')+eur(h.pnl)+'</span></div>').join(''):'<div class="empty">Noch nichts abgeschlossen.</div>';
-  $('msgs').innerHTML=S.msgs.length?S.msgs.map(m=>'<div class="row" style="display:block"><div class="sub">'+m.t+' Uhr, '+m.title+'</div>'+esc(m.text)+'</div>').join(''):'<div class="empty">Noch keine Mitteilungen. Die Bots melden sich hier, sobald etwas passiert.</div>';
+  $('msgs').innerHTML=S.msgs.length?S.msgs.map(m=>'<div class="row" style="display:block"><div class="sub">'+m.t+' Uhr, '+m.title+'</div>'+esc(m.text)+(m.u?' <a href="'+esc(m.u)+'" target="_blank" rel="noopener" style="color:var(--acc)">Artikel</a>':'')+'</div>').join(''):'<div class="empty">Noch keine Mitteilungen. Die Bots melden sich hier, sobald etwas passiert.</div>';
   $('bd').hidden=!unread;$('bd').textContent=unread;
   $('run').textContent=running?'Bots pausieren':'Bots starten';
   $('reset').textContent=resetArm?'Wirklich alles zurücksetzen?':'Zurücksetzen';
@@ -193,7 +228,7 @@ async function tick(){
   save();render();
 }
 
-$('run').onclick=()=>{running=!running;say('System',running?'Bots gestartet.':'Bots pausiert.');render()};
+$('run').onclick=()=>{running=!running;if(running&&live){market();news()}say('System',running?'Bots gestartet.':'Bots pausiert.');render()};
 $('addb').onclick=()=>{const v=$('nb').value.trim();if(!v)return;S.bots.push(v);$('nb').value='';say('System','Neuer Bot „'+v+'“ angelegt.');save();render()};
 $('reset').onclick=()=>{
   if(!resetArm){resetArm=true;setTimeout(()=>{resetArm=false;render()},4000);return render()}

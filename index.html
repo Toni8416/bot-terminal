@@ -4,57 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bot-Terminal</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bot-Terminal">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACHElEQVR42u3dvY3CQBCA0bVFZmqACIqgCIqlHMiogQLIkLAcWKyNx+P3spPwScd+GvyDbpvueCkwpPUWIA7EgTgQB+JAHIgDcSAOxAHiQByIA3EgDsSBOBAH4kAcIA7EgTgQB+JAHIgDcSAOxAHiQByIA3EgDsSBOBAH4kAciAPEgTiYwG6bf/br/PXj/q4EkwNxIA7EQeIT0tPt8NuBj+vTCmWeHD+XUXks0eOoX1195IxjqnXVhxNSxIE4EAeZ5X/w1nvGNv41nsa1ypjjWJMjcxmf3zDH/OhdnIe9Edwqw/xwQoo4EAfiQByIg3XZeQtmNeb7BoOviXDzw+RYuIw5jhVH5jKC9CGOoGVE6EMciANxIA7EgTgQB+JAHIgDcYA4EAfiQByIA3EgDsSBOBAHiANxIA7EgTgQB+JAHIgDcYA4EAfiQBwjTLXbwZZ3Xck8OerXdeP78ST/WKlZXTs15f8ntYNr3NtFRQdOSBEH4kAciANxII5SptsxJOy2q+JYeF2VkfljpWZ1lbGsf9whHVzjtWzZbXLAQpMjIA9TTA7EEU+Oy3hxuIwXx9r6iHD5Zkdql/EmB+JAHIiDbZ6QephiciAOxIE4oJRSmu548S5gciAOxIE4EAfiQByIA3EgDhAH4kAciANxIA7EgTgQB+IAcSAOxIE4EAfiQByIA3EgDsQB4kAciANxIA7EgTgQB+JAHCAOxEGtN9ofUiXeuOcCAAAAAElFTkSuQmCC">
 <style>
-:root{--bg:#f2f4f3;--card:#fff;--ink:#14212b;--mute:#667785;--line:#dde4e7;--up:#0c8f68;--down:#d2412f;--acc:#2f5bd8;--accbg:#e6ecfc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a22;--card:#17252f;--ink:#e9eff3;--mute:#8fa2b0;--line:#253541;--up:#4fd1a5;--down:#ff8272;--acc:#7da2ff;--accbg:#1d2d4d}}
-:root[data-theme="dark"]{--bg:#0f1a22;--card:#17252f;--ink:#e9eff3;--mute:#8fa2b0;--line:#253541;--up:#4fd1a5;--down:#ff8272;--acc:#7da2ff;--accbg:#1d2d4d}
+:root{--bg:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#000;--mute:#6c6c70;--line:#e5e5ea;--up:#248a3d;--down:#d70015;--acc:#007aff;--accbg:rgba(0,122,255,.12);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#1c1c1e;--fill:#2c2c2e;--ink:#fff;--mute:#98989d;--line:#38383a;--up:#30d158;--down:#ff453a;--acc:#0a84ff;--accbg:rgba(10,132,255,.22)}}
+:root[data-theme="dark"]{--bg:#000;--card:#1c1c1e;--fill:#2c2c2e;--ink:#fff;--mute:#98989d;--line:#38383a;--up:#30d158;--down:#ff453a;--acc:#0a84ff;--accbg:rgba(10,132,255,.22)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 Manrope,system-ui,sans-serif;font-variant-numeric:tabular-nums}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 16px 8px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-h1{font-size:19px;font-weight:800;margin:0;letter-spacing:-.01em}
-.sub{font-size:12px;color:var(--mute)}
-main{max-width:460px;margin:0 auto;padding:0 16px 40px}
-button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:9px 14px;font-weight:600;background:var(--acc);color:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--bg) 80%,transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:10}
+header{padding:10px 16px 8px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;max-width:460px;margin:0 auto}
+h1{font-size:34px;font-weight:700;margin:0;letter-spacing:.2px;line-height:1.15}
+.sub{font-size:13px;color:var(--mute)}
+main{max-width:460px;margin:0 auto;padding:4px 16px 130px}
+button{font:inherit;font-weight:600;cursor:pointer;border:0;border-radius:10px;padding:10px 16px;background:var(--acc);color:#fff;touch-action:manipulation;min-height:44px}
+button:active{opacity:.6}
 button.ghost{background:var(--accbg);color:var(--acc)}
+#run{border-radius:99px;padding:6px 16px;min-height:34px;font-size:15px;margin-bottom:4px}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-nav{display:flex;gap:6px;margin:4px 0 14px}
-nav button{flex:1;font-size:13.5px;background:transparent;color:var(--mute);padding:8px 4px;border-bottom:2px solid var(--line);border-radius:0}
-nav button.on{color:var(--ink);border-color:var(--acc)}
-.badge{background:var(--down);color:#fff;border-radius:9px;font-size:11px;padding:1px 6px;margin-left:4px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;background:color-mix(in srgb,var(--card) 82%,transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:.5px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:500;background:transparent;color:var(--mute);padding:7px 2px 5px;border-radius:0;position:relative;min-height:49px}
+nav svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--acc)}
+.badge{position:absolute;top:3px;left:56%;background:var(--down);color:#fff;border-radius:9px;font-size:11px;font-weight:600;padding:0 6px;line-height:17px}
+.card{background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:16px}
 .hero{padding:18px 16px}
-.big{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.big{font-size:44px;font-weight:700;letter-spacing:.2px;line-height:1.1}
 .up{color:var(--up)}.down{color:var(--down)}.mute{color:var(--mute)}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:.5px solid var(--line)}
 .row:last-child{border:0}
-h2{font-size:15px;font-weight:800;margin:0 0 6px}
+h2{font-size:13px;font-weight:600;margin:0 0 4px;color:var(--mute)}
 .pill{font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px}
-.long{background:color-mix(in srgb,var(--up) 18%,transparent);color:var(--up)}
-.short{background:color-mix(in srgb,var(--down) 18%,transparent);color:var(--down)}
-.lv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;font-size:13px;margin:8px 0}
+.long{background:color-mix(in srgb,var(--up) 16%,transparent);color:var(--up)}
+.short{background:color-mix(in srgb,var(--down) 16%,transparent);color:var(--down)}
+.lv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;font-size:14px;margin:8px 0}
 .lv small{display:block;color:var(--mute);font-size:11px}
-input,textarea{font:inherit;width:100%;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mute);margin-right:6px}
+input,textarea{font:inherit;font-size:16px;width:100%;padding:11px 12px;border-radius:10px;border:0;background:var(--fill);color:var(--ink)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--mute);margin-right:7px}
 .dot.on{background:var(--up)}
 .empty{color:var(--mute);padding:6px 0}
+.chip{background:var(--card);color:var(--ink);border:.5px solid var(--line);border-radius:99px;padding:8px 14px;min-height:38px;font-weight:500}
+.bcard{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border-radius:12px;padding:14px 16px;margin-bottom:10px;font-weight:400}
+.bcard b{font-size:17px}
+.step{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0}
+.step button{width:44px;padding:0;font-size:22px}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:12px 0}
+.stat b{display:block;font-size:19px}
+.stat small{display:block;color:var(--mute);font-size:11px}
+#chat{display:flex;flex-direction:column;gap:6px;padding:4px 0 8px}
+.b{max-width:84%;padding:8px 13px;border-radius:18px;font-size:16px;line-height:1.35;overflow-wrap:anywhere}
+.in{align-self:flex-start;background:var(--card);border-bottom-left-radius:5px}
+.out{align-self:flex-end;background:var(--acc);color:#fff;border-bottom-right-radius:5px}
+.who{font-size:11px;color:var(--mute);margin-bottom:2px}
+.composer{position:sticky;bottom:calc(52px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:center;padding:8px 0;background:var(--bg)}
+.composer input{border-radius:99px;padding:11px 16px}
+.composer button{width:40px;height:40px;min-height:40px;border-radius:50%;padding:0;font-size:20px;flex:none}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>Bot-Terminal</h1><div class="sub">Übungsmodus mit virtuellen 10 €, kein echtes Geld</div></div>
+  <div><h1 id="ttl">Bot-Terminal</h1><div class="sub" id="hs">Übungsmodus mit virtuellen 10 €, kein echtes Geld</div></div>
   <button id="run">Bots starten</button>
 </header>
 <main>
-  <nav id="tabs">
-    <button data-v="v1" class="on">Übersicht</button>
-    <button data-v="v2">Signale</button>
-    <button data-v="v3">Mitteilungen<span id="bd" class="badge" hidden></span></button>
-    <button data-v="v4">Wissen</button>
-  </nav>
-
   <section id="v1">
     <div class="card hero">
       <div class="mute" style="font-size:13px">Gesamtwert</div>
@@ -62,10 +80,9 @@ input,textarea{font:inherit;width:100%;padding:9px 12px;border-radius:12px;borde
       <div id="pl" style="font-weight:600"></div>
       <svg id="spark" viewBox="0 0 300 50" preserveAspectRatio="none" style="width:100%;height:50px;margin-top:10px"></svg>
     </div>
+    <div class="card"><h2>Marktvergleich von Bot 2</h2><div id="mk"></div></div>
     <div class="card"><h2>Kurse</h2><div id="prices"></div><div class="sub" id="src" style="margin-top:6px"></div></div>
-    <div class="card"><h2>Deine Bots</h2><div id="bots"></div>
-      <div style="display:flex;gap:8px;margin-top:10px"><input id="nb" placeholder="Name für neuen Bot" maxlength="24"><button class="ghost" id="addb">Hinzufügen</button></div>
-    </div>
+    <div class="card"><h2>Deine Bots</h2><div id="bots" style="display:flex;flex-wrap:wrap;gap:8px"></div><div class="sub" style="margin-top:8px">Tippe einen Bot an für Details und Einstellungen.</div></div>
     <button class="ghost" id="reset" style="width:100%">Zurücksetzen</button>
   </section>
 
@@ -75,7 +92,8 @@ input,textarea{font:inherit;width:100%;padding:9px 12px;border-radius:12px;borde
   </section>
 
   <section id="v3" hidden>
-    <div class="card"><div id="msgs"></div></div>
+    <div id="chat"></div>
+    <div class="composer"><input id="ci" placeholder="Nachricht an die Bots" enterkeyhint="send" autocomplete="off" autocapitalize="sentences"><button id="cs" aria-label="Senden">↑</button></div>
   </section>
 
   <section id="v4" hidden>
@@ -87,22 +105,37 @@ input,textarea{font:inherit;width:100%;padding:9px 12px;border-radius:12px;borde
     </div>
     <div class="card"><h2>Gespeichertes Wissen</h2><div id="wl"></div></div>
   </section>
+  <section id="v5" hidden>
+    <div id="bl"></div>
+    <div class="card" id="addbox"><h2>Neuen Bot anlegen</h2>
+      <div style="display:flex;gap:8px"><input id="nb" placeholder="Name für neuen Bot" maxlength="24"><button class="ghost" id="addb">Hinzufügen</button></div>
+    </div>
+  </section>
 </main>
+<nav id="tabs">
+  <button data-v="v1" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Übersicht</button>
+  <button data-v="v5"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4.5M9 13v1M15 13v1"/></svg>Bots</button>
+  <button data-v="v2"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 8-9M15 6h5v5"/></svg>Signale</button>
+  <button data-v="v3"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H10l-4 4v-4H4z"/></svg>Chat<span id="bd" class="badge" hidden></span></button>
+  <button data-v="v4"><svg viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h12v15H7a2 2 0 00-2 2zM5 20a2 2 0 002 2h12"/></svg>Wissen</button>
+</nav>
 
 <script>
 const COINS=[{id:'bitcoin',s:'BTC',p:78000},{id:'ethereum',s:'ETH',p:2900},{id:'solana',s:'SOL',p:157},{id:'ripple',s:'XRP',p:2.1}];
 const START=10,SIZE=3,MAXOPEN=3,SL=1,TP=2;
 const KEY='cbt-v2';
 const $=id=>document.getElementById(id);
+(()=>{const d=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');
+Object.defineProperty(Element.prototype,'innerHTML',{get(){return d.get.call(this)},set(v){if(this._h===v)return;this._h=v;d.set.call(this,v)}})})();
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-const fresh=()=>({cash:START,pos:[],hist:[],msgs:[],bots:[],seen:[],wissen:[]});
+const fresh=()=>({cash:START,pos:[],hist:[],msgs:[],bots:[],seen:[],wissen:[],on:{b1:true,b2:true},set:{},daily:{},days:[],lastDaily:''});
 const P=()=>S.wissen.reduce((a,k)=>Object.assign(a,k.p),{});
 let S=Object.assign(fresh(),load()||{});
 const price={},px={},sen={},trend={},eqH=[],chg24={},cb={};
 COINS.forEach(c=>{price[c.id]=c.p;px[c.id]=[c.p];sen[c.id]=0;trend[c.id]=0});
-let fails=0,live=false,running=false,n=0,unread=0,resetArm=false,tab='v1';
+let lastN=0,sel=null,fails=0,live=false,running=false,n=0,unread=0,resetArm=false,tab='v1';
 
 const eur=v=>v.toLocaleString('de-DE',{style:'currency',currency:'EUR'});
 const pr=v=>{const d=v<10?4:v<1000?2:0;return v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d})+' €'};
@@ -119,6 +152,13 @@ async function fetchLive(){
     if(!live)COINS.forEach(c=>{px[c.id]=[]});
     COINS.forEach(c=>{price[c.id]=j[c.id].eur;chg24[c.id]=j[c.id].eur_24h_change;px[c.id].push(price[c.id])});
     return true;
+  }catch(e){}
+  try{
+    const r=await fetch('https://min-api.cryptocompare.com/data/pricemultifull?fsyms='+COINS.map(c=>c.s).join(',')+'&tsyms=EUR');
+    const j=await r.json();
+    if(!live)COINS.forEach(c=>{px[c.id]=[]});
+    COINS.forEach(c=>{const d=j.RAW[c.s].EUR;price[c.id]=d.PRICE;chg24[c.id]=d.CHANGEPCT24HOUR;px[c.id].push(price[c.id])});
+    return true;
   }catch(e){return false}
 }
 function walk(){
@@ -128,7 +168,7 @@ function walk(){
     px[c.id].push(price[c.id]);
   });
 }
-const val=p=>{const cur=price[p.id];return p.size*(1+p.dir*(cur/p.entry-1))};
+const val=p=>{const cur=price[p.id];return Math.max(0,p.size*(1+p.dir*(cur/p.entry-1)*(p.lev||1)))};
 const equity=()=>S.cash+S.pos.reduce((a,p)=>a+val(p),0);
 
 const TXT={'Bullish Engulfing':'bullisch: Käufer übernehmen, mögliche Wende nach oben','Bearish Engulfing':'bärisch: Verkäufer übernehmen, mögliche Wende nach unten','Hammer':'bullisch: nach Abwärtstrend möglicher Boden','Hanging Man':'bärisch: nach Aufwärtstrend mögliches Ende','Shooting Star':'bärisch: nach Aufwärtstrend mögliche Umkehr','Doji':'neutral: Markt ist unentschlossen'};
@@ -149,15 +189,15 @@ function patt(k){
 async function candles(){
   for(const c of COINS){
     try{
-      const r=await fetch('https://api.coingecko.com/api/v3/coins/'+c.id+'/ohlc?vs_currency=eur&days=1');
-      const a=await r.json();
-      if(!Array.isArray(a)||a.length<8)continue;
-      const k=a.slice(0,-1).map(x=>({t:x[0],o:x[1],h:x[2],l:x[3],c:x[4]}));
+      let k,u='30-Min-Kerze';
+      try{const r=await fetch('https://api.coingecko.com/api/v3/coins/'+c.id+'/ohlc?vs_currency=eur&days=1');const a=await r.json();if(Array.isArray(a)&&a.length>=8)k=a.slice(0,-1).map(x=>({t:x[0],o:x[1],h:x[2],l:x[3],c:x[4]}))}catch(e){}
+      if(!k){try{const r=await fetch('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+c.s+'&tsym=EUR&limit=12');const j=await r.json(),a=(j.Data&&j.Data.Data)||[];if(a.length>=8){k=a.slice(0,-1).map(x=>({t:x.time*1000,o:x.open,h:x.high,l:x.low,c:x.close}));u='Stunden-Kerze'}}catch(e){}}
+      if(!k)continue;
       const pt=patt(k);
       if(!pt){delete cb[c.id];continue}
       cb[c.id]={b:pt.b,name:pt.name,t:Date.now()};
       const key=c.s+pt.name+k[k.length-1].t;
-      if(!S.seen.includes(key)){S.seen.push(key);say('Bot 2 (Kerzen)',c.s+' (30-Min-Kerze): '+pt.name+', '+pt.text+'.')}
+      if(!S.seen.includes(key)){S.seen.push(key);say('Bot 2 (Kerzen)',c.s+' ('+u+'): '+pt.name+', '+pt.text+'.')}
     }catch(e){}
     await new Promise(r=>setTimeout(r,1500));
   }
@@ -191,7 +231,8 @@ function market(){
   const w=avg>1?'freundlich':avg<-1?'schwach':'eher seitwärts';
   say('Bot 2 (Marktlage)','Der Markt läuft '+w+': '+ch.map(c=>c.s+' '+pc(chg24[c.id])).join(', ')+' in 24 Stunden.');
 }
-function bot2(){ // News-Bot: live = echte Nachrichten, sonst Demo
+function bot2(){ // Vergleicht alle Coins, liest News und Kerzen, gibt Signale
+  sigMsg();
   if(live){
     if(n%150===1)news();
     if(n%150===3)candles();
@@ -205,40 +246,131 @@ function bot2(){ // News-Bot: live = echte Nachrichten, sonst Demo
   const mood=sen[c.id]>.2?'positiv':sen[c.id]<-.2?'negativ':'neutral';
   say('Bot 2 (News, Demo)',c.s+': Stimmung '+mood+'. Das sind simulierte Nachrichten, noch keine echten Quellen.');
 }
-function bot1(){ // Kerzen-Bot: einfacher Momentum-Test
+const utc=()=>new Date().toISOString().slice(0,10);
+const rng=d=>(d.h-d.l)/d.o*100;
+const volOf=s=>{const a=S.daily[s];return a&&a.length?rng(a[a.length-1]):0};
+function dbias(s){
+  const a=S.daily[s];if(!a||a.length<6)return {b:0,name:''};
+  const k=a.slice(0,-1),pt=patt(k);
+  if(pt)return {b:pt.b,name:pt.name};
+  const y=k[k.length-1];return {b:y.c>y.o?.3:-.3,name:''};
+}
+let dailyT=0;
+const dailyDue=()=>{const age=Date.now()-dailyT;return (S.lastDaily!==utc()&&age>6e5)||age>216e5};
+async function dailyUpdate(){
+  let ok=false;
+  for(const c of COINS){
+    try{
+      const r=await fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym='+c.s+'&tsym=EUR&limit=10');
+      const j=await r.json();
+      const a=((j.Data&&j.Data.Data)||[]).filter(x=>x.open>0).map(x=>({t:x.time*1000,o:x.open,h:x.high,l:x.low,c:x.close}));
+      if(a.length>=6){S.daily[c.s]=a;ok=true}
+    }catch(e){}
+    await new Promise(r=>setTimeout(r,800));
+  }
+  if(!ok)return;
+  S.lastDaily=utc();
+  const rows=COINS.map(c=>{
+    const a=S.daily[c.s];if(!a||a.length<6)return null;
+    const k=a.slice(0,-1),y=k[k.length-1],pt=patt(k);
+    return {s:c.s,date:new Date(y.t).toISOString().slice(0,10),chg:(y.c/y.o-1)*100,rg:rng(y),pat:pt?pt.name:''};
+  }).filter(Boolean);
+  if(rows.length&&!S.days.some(d=>d.date===rows[0].date)){
+    const up=rows.filter(r=>r.chg>0).length,big=rows.reduce((a,b)=>b.rg>a.rg?b:a);
+    S.days.unshift({date:rows[0].date,rows,up});S.days=S.days.slice(0,30);
+    say('Bot 2 (Tagesmuster)',rows[0].date.split('-').reverse().join('.')+': '+up+' von '+rows.length+' Coins im Plus. '+rows.map(r=>r.s+' '+pc(r.chg)+(r.pat?' ('+r.pat+')':'')).join(', ')+'. Größte Schwankung: '+big.s+' '+big.rg.toFixed(1).replace('.',',')+' %. Der Krypto-Tag läuft von 00:00 bis 24:00 Uhr UTC.');
+  }
+  save();
+}
+const CFG=k=>S.set[k]??({lev:3,minp:65,agree:3})[k];
+const levFor=(p,s)=>{let l=Math.min(CFG('lev'),p>=80?5:p>=70?3:2);if(volOf(s)>6)l=Math.min(l,2);return l};
+function analyze(){
   const th=P().schwelle||(live?0.1:0.3);
-  COINS.forEach(c=>{
-    const h=px[c.id];if(h.length<6)return;
+  const rows=COINS.map(c=>{
+    const h=px[c.id];
+    const ch=h.length>=6?(h[h.length-1]/h[h.length-6]-1)*100:0;
+    const k=cb[c.id]&&Date.now()-cb[c.id].t<54e5?cb[c.id]:null;
+    const mom=Math.max(-1,Math.min(1,ch/(th*2))),cand=k?k.b:0,news=sen[c.id];
+    const has=chg24[c.id]!=null,day=has?Math.max(-1,Math.min(1,chg24[c.id]/3)):0;
+    const w=has?[.25,.25,.2,.15,.15]:[.4,.3,.3,0,0],db=dbias(c.s);
+    const score=mom*w[0]+cand*w[1]+news*w[2]+day*w[3]+db.b*w[4];
+    return {c,score,dir:score>.15?1:score<-.15?-1:0,k,cand,news,dp:db.b,dname:db.name};
+  });
+  const up=rows.filter(r=>r.dir>0).length,down=rows.filter(r=>r.dir<0).length;
+  const dir=up>=CFG('agree')?1:down>=CFG('agree')?-1:0;
+  rows.forEach(r=>{const ag=r.dir>0?up:r.dir<0?down:0;r.p=r.dir?Math.min(85,Math.round(50+20*Math.abs(r.score)+7.5*(ag-1))):0});
+  return {rows,up,down,dir};
+}
+const why=(r,A)=>{const n=r.dir>0?A.up:A.down;let t=n+' von '+COINS.length+' Coins '+(r.dir>0?'steigen':'fallen');if(r.k&&r.cand===r.dir)t+=', Kerzenmuster '+r.k.name;if(r.dname&&Math.sign(r.dp)===r.dir)t+=', Tagesmuster '+r.dname;if(r.news*r.dir>.2)t+=', Stimmung '+(r.dir>0?'positiv':'negativ');return 'Grund: '+t+'. Wahrscheinlichkeit (Schätzung) '+r.p+' %.'};
+const breadthText=A=>A.rows.map(r=>r.c.s+' '+(r.dir>0?'steigt':r.dir<0?'fällt':'unklar')+(r.p?' ('+r.p+' %)':'')).join(', ')+'. '+(A.dir?(A.dir>0?A.up:A.down)+' von '+COINS.length+' Coins '+(A.dir>0?'steigen':'fallen')+': '+(A.dir>0?'Long':'Short')+'-Signal, Hebel bis '+CFG('lev')+'x.':'Kein klares Marktsignal, Bot 1 wartet.');
+let lastSig='',lastSigT=0;
+function sigMsg(){
+  const A=analyze(),ok=A.rows.filter(r=>A.dir&&r.dir===A.dir&&r.p>=CFG('minp'));
+  const key=A.dir+ok.map(r=>r.c.s).join('');
+  if(key===lastSig||!ok.length||Date.now()-lastSigT<18e4)return;
+  lastSig=key;lastSigT=Date.now();
+  say('Bot 2 (Signal)',(A.dir>0?A.up:A.down)+' von '+COINS.length+' Coins '+(A.dir>0?'steigen':'fallen')+': '+(A.dir>0?'Long':'Short')+'-Chance bei '+ok.map(r=>r.c.s+' ('+r.p+' %, '+levFor(r.p,r.c.s)+'x)').join(', ')+'. Die Wahrscheinlichkeit ist nur eine Schätzung.');
+}
+function bot1(){ // Handels-Bot: setzt die Signale von Bot 2 um
+  const A=analyze();
+  if(!A.dir)return;
+  A.rows.forEach(r=>{
+    const c=r.c;
+    if(r.dir!==A.dir||r.p<CFG('minp'))return;
     if(P().coins&&!P().coins.includes(c.s))return;
-    const ch=(h[h.length-1]/h[h.length-6]-1)*100;
     if(S.pos.some(p=>p.id===c.id)||S.pos.length>=MAXOPEN||S.cash<SIZE)return;
-    const k=cb[c.id]&&Date.now()-cb[c.id].t<54e5?cb[c.id]:null,kb=k?k.b:0;
-    let dir=0,viaK=false;
-    if(ch>th&&sen[c.id]>=0&&kb>=0)dir=1;
-    if(ch<-th&&sen[c.id]<=0&&kb<=0)dir=-1;
-    if(!dir&&kb&&sen[c.id]*kb>=0){dir=kb;viaK=true}
-    if(!dir)return;
-    if(viaK)k.b=0;
-    const e=price[c.id];
-    const pp=P(),slp=pp.sl||SL,tpp=pp.tp||TP;
+    const lev=levFor(r.p,c.s),e=price[c.id],pp=P(),slp=S.set.sl||pp.sl||SL,tpp=S.set.tp||pp.tp||TP;
     S.cash-=SIZE;
-    S.pos.push({id:c.id,dir,entry:e,size:SIZE,slp,tpp,sl:e*(1-dir*slp/100),tp:e*(1+dir*tpp/100),t:now()});
-    say('Bot 1 (Kerzen)',(dir>0?'Long ':'Short ')+c.s+' bei '+pr(e)+' eröffnet (Übung, '+SIZE+' €)'+(viaK?', wegen '+k.name:'')+'.');
+    S.pos.push({id:c.id,dir:r.dir,entry:e,size:SIZE,lev,slp,tpp,sl:e*(1-r.dir*slp/100),tp:e*(1+r.dir*tpp/100),t:now(),p:r.p});
+    say('Bot 1 (Handel)',(r.dir>0?'Long ':'Short ')+c.s+' '+lev+'x bei '+pr(e)+' eröffnet (Übung, '+SIZE+' € Einsatz). '+why(r,A));
   });
 }
 function closeCheck(){
   S.pos=S.pos.filter(p=>{
     const r=p.dir*(price[p.id]/p.entry-1)*100;
-    if(r<=-(p.slp||SL)||r>=(p.tpp||TP)){
+    if(r<=-(p.slp||SL)||r>=(p.tpp||TP)||r*(p.lev||1)<=-90){
       const v=val(p);S.cash+=v;
       S.hist.unshift({id:p.id,dir:p.dir,pnl:v-p.size,r});S.hist=S.hist.slice(0,30);
-      say('Bot 1 (Kerzen)',sym(p.id)+' geschlossen: '+(v-p.size>=0?'Gewinn ':'Verlust ')+eur(v-p.size)+'.');
+      say('Bot 1 (Handel)',sym(p.id)+(r*(p.lev||1)<=-90?' liquidiert: ':' geschlossen: ')+(v-p.size>=0?'Gewinn ':'Verlust ')+eur(v-p.size)+'.');
       return false;
     }
     return true;
   });
 }
 
+const STEP={sl:[.5,10,SL],tp:[.5,10,TP],lev:[1,10,3],minp:[50,85,65],agree:[2,4,3]};
+function botList(){
+  return [
+    {id:'b1',n:'Bot 1: Kerzen',t:'Handelt zur Übung nach den Signalen von Bot 2, mit Hebel (BTC, ETH, SOL, XRP)',on:running&&S.on.b1},
+    {id:'b2',n:'Bot 2: News',t:live?'Lädt Kurse, Tageskerzen und Nachrichten automatisch, vergleicht alle 4 Coins und gibt Bot 1 Long- oder Short-Signale':'Vergleicht alle 4 Coins und gibt Bot 1 Signale (noch Demo-Daten)',on:running&&S.on.b2}
+  ].concat(S.bots.map((x,i)=>({id:'c'+i,n:esc(x),t:'Eigener Bot, wartet auf seine Aufgabe',on:false})));
+}
+function botDetail(b){
+  const own=b.id[0]==='c';
+  let h='<button class="ghost" data-a="back" style="margin-bottom:10px">‹ Zurück</button><div class="card"><h2><span class="dot'+(b.on?' on':'')+'"></span>'+b.n+'</h2><div class="sub">'+b.t+'</div>';
+  if(b.id==='b1'){
+    const tot=S.hist.reduce((a,x)=>a+x.pnl,0),w=S.hist.filter(x=>x.pnl>0).length;
+    h+='<div class="stat"><div><b>'+S.pos.length+'</b><small>offen</small></div><div><b>'+S.hist.length+'</b><small>abgeschlossen</small></div><div><b class="'+(tot>=0?'up':'down')+'">'+eur(tot)+'</b><small>Ergebnis</small></div></div>';
+    if(S.hist.length)h+='<div class="sub">Trefferquote: '+Math.round(w/S.hist.length*100)+' %</div>';
+  }else if(b.id==='b2'){
+    const ks=COINS.filter(c=>cb[c.id]&&Date.now()-cb[c.id].t<54e5).map(c=>c.s+': '+cb[c.id].name);
+    h+='<div class="stat"><div><b>'+S.wissen.length+'</b><small>Wissenspakete</small></div><div><b>'+(live?'live':'Demo')+'</b><small>Datenquelle</small></div><div><b>'+ks.length+'</b><small>aktive Muster</small></div></div>';
+    if(ks.length)h+='<div class="sub">'+ks.join(', ')+'</div>';
+  }
+  if(own)h+='<button class="ghost" data-a="del" style="width:100%;margin-top:10px">Bot löschen</button></div>';
+  else h+='<button data-a="tg" style="width:100%;margin-top:10px">'+(S.on[b.id]?'Diesen Bot ausschalten':'Diesen Bot einschalten')+'</button>'+(running?'':'<div class="sub" style="margin-top:6px">Der Hauptschalter oben steht noch auf „Bots starten“.</div>')+'</div>';
+  if(b.id==='b1'){
+    const g=k=>S.set[k]??P()[k]??STEP[k][2],f=(v,u)=>String(v).replace('.',',')+u;
+    const st=(k,l,u,d,note)=>'<div class="step"><span>'+l+'<div class="sub">'+note+'</div></span><span style="display:flex;align-items:center;gap:10px"><button class="ghost" data-a="'+k+'" data-d="-'+d+'">−</button><b style="min-width:56px;text-align:center">'+f(g(k),u)+'</b><button class="ghost" data-a="'+k+'" data-d="'+d+'">+</button></span></div>';
+    h+='<div class="card"><h2>Einstellungen</h2>'+st('lev','Höchster Hebel','x',1,'je sicherer das Signal, desto höher (bis zu diesem Wert)')+st('minp','Mindest-Wahrscheinlichkeit',' %',5,'darunter kein Trade')+st('agree','Coins müssen übereinstimmen','',1,'z. B. 3 von 4 steigen')+st('sl','Stop-Loss',' %',0.5,'Kursbewegung gegen dich, gilt für neue Trades')+st('tp','Take-Profit',' %',0.5,'Kursbewegung für dich, gilt für neue Trades')+'<div class="sub" style="margin-top:8px">Hebel vergrößert Gewinne und Verluste. Hier läuft alles mit virtuellem Geld zum Üben.</div></div>';
+  }
+  if(b.id==='b2')h+='<div class="card"><h2>Tagesmuster (täglich neu, Tageswechsel 00:00 UTC)</h2>'+(S.days.length?S.days.slice(0,7).map(d=>'<div class="row" style="display:block"><b>'+d.date.split('-').reverse().slice(0,2).join('.')+'.</b> <span class="mute">'+d.up+' von '+d.rows.length+' im Plus</span><div class="sub">'+d.rows.map(r=>r.s+' '+pc(r.chg)+(r.pat?' ('+r.pat+')':'')).join(', ')+'</div></div>').join(''):'<div class="empty">Noch kein Tagesmuster. Bot 2 lädt die Tageskerzen automatisch, sobald Live-Daten laufen.</div>')+'</div>';
+  if(!own){
+    const ms=S.msgs.filter(m=>m.title.indexOf(b.id==='b1'?'Bot 1':'Bot 2')===0).slice(0,5);
+    h+='<div class="card"><h2>Letzte Meldungen</h2>'+(ms.length?ms.map(m=>'<div class="row" style="display:block"><div class="sub">'+m.t+' Uhr</div>'+esc(m.text)+'</div>').join(''):'<div class="empty">Noch keine Meldungen.</div>')+'</div>';
+  }
+  return h;
+}
 function render(){
   const e=equity();eqH.push(e);if(eqH.length>60)eqH.shift();
   const d=e-START;
@@ -250,32 +382,38 @@ function render(){
   $('spark').innerHTML='<polyline fill="none" stroke="'+(d>=0?'var(--up)':'var(--down)')+'" stroke-width="2" points="'+pts+'"/>';
   $('prices').innerHTML=COINS.map(c=>{
     const h=px[c.id],ch=(h[h.length-1]/h[0]-1)*100;
-    const kk=cb[c.id]&&Date.now()-cb[c.id].t<54e5?'<span class="sub" style="display:block;font-weight:400">'+cb[c.id].name+'</span>':'';
+    const v=volOf(c.s),kt=[cb[c.id]&&Date.now()-cb[c.id].t<54e5?cb[c.id].name:'',v?'Schwankung '+v.toFixed(1).replace('.',',')+' %':''].filter(Boolean).join(', ');
+    const kk=kt?'<span class="sub" style="display:block;font-weight:400">'+kt+'</span>':'';
     return '<div class="row"><b>'+c.s+kk+'</b><span>'+pr(price[c.id])+'</span><span class="'+(ch>=0?'up':'down')+'">'+pc(ch)+'</span></div>';
   }).join('');
   $('src').textContent=live?'Live-Kurse von CoinGecko':'Demo-Kurse (simuliert), echte Kurse laufen nur, wenn die Datei auf deinem Gerät oder einer eigenen Seite geöffnet wird';
-  const bots=[
-    {n:'Bot 1: Kerzen',t:'Sucht Long- und Short-Chancen im Kursverlauf (BTC, ETH, SOL, XRP)',on:running},
-    {n:'Bot 2: News',t:live?'Liest echte Nachrichten, erkennt Kerzenmuster (Engulfing, Hammer, Doji, Shooting Star) und gibt Bot 1 Hinweise':'Bewertet die Stimmung und gibt Bot 1 Hinweise (noch Demo)',on:running}
-  ].concat(S.bots.map(b=>({n:esc(b),t:'Wartet auf seine Aufgabe, die legen wir als Nächstes fest',on:false})));
-  $('bots').innerHTML=bots.map(b=>'<div class="row"><div><b><span class="dot'+(b.on?' on':'')+'"></span>'+b.n+'</b><div class="sub">'+b.t+'</div></div></div>').join('');
-  $('open').innerHTML=S.pos.length?S.pos.map(p=>{
-    const r=p.dir*(price[p.id]/p.entry-1)*100;
-    return '<div class="row" style="display:block"><div style="display:flex;justify-content:space-between"><b>'+sym(p.id)+' <span class="pill '+(p.dir>0?'long':'short')+'">'+(p.dir>0?'Long':'Short')+'</span></b><span class="'+(r>=0?'up':'down')+'">'+pc(r)+'</span></div>'+
-    '<div class="lv"><div><small>Einstieg</small>'+pr(p.entry)+'</div><div><small>Stop-Loss</small><span class="down">'+pr(p.sl)+'</span></div><div><small>Take-Profit</small><span class="up">'+pr(p.tp)+'</span></div></div></div>';
+  const A=analyze();
+  $('mk').innerHTML=A.rows.map(r=>'<div class="row"><b>'+r.c.s+'</b><span class="'+(r.dir>0?'up':r.dir<0?'down':'mute')+'">'+(r.dir>0?'↑ steigt':r.dir<0?'↓ fällt':'→ unklar')+'</span><span class="mute">'+(r.p?r.p+' %':'–')+'</span></div>').join('')+'<div class="sub" style="margin-top:8px">'+(A.dir?(A.dir>0?A.up:A.down)+' von '+COINS.length+' Coins '+(A.dir>0?'steigen':'fallen')+': '+(A.dir>0?'Long':'Short')+'-Signal, Hebel bis '+CFG('lev')+'x.':'Kein klares Signal, Bot 1 wartet.')+' Die Prozentzahl ist eine Schätzung aus Kursbewegung, Kerzenmustern und Nachrichten.</div>';
+  const bl=botList();
+  if(sel&&!bl.some(x=>x.id===sel))sel=null;
+  $('bots').innerHTML=bl.map(x=>'<button class="chip" data-b="'+x.id+'"><span class="dot'+(x.on?' on':'')+'"></span>'+x.n+'</button>').join('');
+  $('bl').innerHTML=sel?botDetail(bl.find(x=>x.id===sel)):bl.map(x=>'<button class="bcard" data-b="'+x.id+'"><div style="display:flex;justify-content:space-between;align-items:center"><b><span class="dot'+(x.on?' on':'')+'"></span>'+x.n+'</b><span style="color:var(--mute);font-size:20px">›</span></div><div class="sub" style="margin-top:4px">'+x.t+'</div></button>').join('');
+  $('addbox').hidden=!!sel;
+  $('open').innerHTML=S.pos.length?S.pos.map((p,i)=>{
+    const r=p.dir*(price[p.id]/p.entry-1)*100*(p.lev||1);
+    return '<div class="row" style="display:block"><div style="display:flex;justify-content:space-between"><b>'+sym(p.id)+' <span class="pill '+(p.dir>0?'long':'short')+'">'+(p.dir>0?'Long':'Short')+'</span>'+(p.lev>1?' <span class="pill" style="background:var(--accbg);color:var(--acc)">'+p.lev+'x</span>':'')+'</b><span class="'+(r>=0?'up':'down')+'">'+pc(r)+'</span></div>'+
+    '<div class="lv"><div><small>Einstieg</small>'+pr(p.entry)+'</div><div><small>Stop-Loss</small><span class="down">'+pr(p.sl)+'</span></div><div><small>Take-Profit</small><span class="up">'+pr(p.tp)+'</span></div></div><button class="ghost" data-c="'+i+'" style="width:100%">Jetzt schließen</button></div>';
   }).join(''):'<div class="empty">Keine offene Position. Starte die Bots, dann suchen sie nach Chancen.</div>';
   $('closed').innerHTML=S.hist.length?S.hist.map(h=>'<div class="row"><span><b>'+sym(h.id)+'</b> '+(h.dir>0?'Long':'Short')+'</span><span class="'+(h.pnl>=0?'up':'down')+'">'+(h.pnl>=0?'+':'')+eur(h.pnl)+'</span></div>').join(''):'<div class="empty">Noch nichts abgeschlossen.</div>';
-  $('msgs').innerHTML=S.msgs.length?S.msgs.map(m=>'<div class="row" style="display:block"><div class="sub">'+m.t+' Uhr, '+m.title+'</div>'+esc(m.text)+(m.u?' <a href="'+esc(m.u)+'" target="_blank" rel="noopener" style="color:var(--acc)">Artikel</a>':'')+'</div>').join(''):'<div class="empty">Noch keine Mitteilungen. Die Bots melden sich hier, sobald etwas passiert.</div>';
+  const cm=S.msgs.slice(0,40).reverse();
+  $('chat').innerHTML=cm.length?cm.map(m=>m.you?'<div class="b out">'+esc(m.text)+'</div>':'<div class="b in"><div class="who">'+esc(m.title)+', '+m.t+' Uhr</div>'+esc(m.text)+(m.u?' <a href="'+esc(m.u)+'" target="_blank" rel="noopener" style="color:var(--acc)">Artikel</a>':'')+'</div>').join(''):'<div class="empty">Noch keine Nachrichten. Schreib „hilfe“, dann siehst du, was die Bots verstehen.</div>';
+  if(tab==='v3'&&S.msgs.length!==lastN){lastN=S.msgs.length;scrollTo(0,document.body.scrollHeight)}
   $('wl').innerHTML=S.wissen.length?S.wissen.map((k,i)=>'<div class="row" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>'+esc(k.t)+'</b><button class="ghost" data-d="'+i+'" style="padding:4px 10px">Entfernen</button></div>'+(k.q?'<div class="sub">'+esc(k.q)+'</div>':'')+k.n.map(x=>'<div style="margin-top:4px">• '+esc(x)+'</div>').join('')+(Object.keys(k.p).length?'<div class="sub" style="margin-top:4px">Einstellungen für Bot 1: '+esc(JSON.stringify(k.p))+'</div>':'')+'</div>').join(''):'<div class="empty">Noch kein Wissen gespeichert.</div>';
   $('bd').hidden=!unread;$('bd').textContent=unread;
-  $('run').textContent=running?'Bots pausieren':'Bots starten';
+  $('run').textContent=running?'Bots pausieren':'Bots starten';$('run').className=running?'ghost':'';
   $('reset').textContent=resetArm?'Wirklich alles zurücksetzen?':'Zurücksetzen';
 }
 
 async function tick(){
   n++;
-  if(live){if(n%8===0){if(await fetchLive())fails=0;else if(++fails>=6)live=false}}else walk();
-  if(running){bot2();closeCheck();bot1();}
+  if(live){if(n%8===0){if(await fetchLive())fails=0;else if(++fails>=6)live=false}}else if(n%15===0&&await fetchLive()){live=true;fails=0;if(running){market();news();candles()}}else walk();
+  if(live&&S.on.b2&&dailyDue()){dailyT=Date.now();dailyUpdate()}
+  if(running){if(S.on.b2)bot2();closeCheck();if(S.on.b1)bot1();}
   save();render();
 }
 
@@ -299,13 +437,63 @@ $('kwb').onclick=()=>{
     save();render();
   }catch(e){$('km').textContent='Das hat nicht geklappt. Prüfe, ob du das ganze Paket kopiert hast.'}
 };
-$('tabs').onclick=ev=>{
+const HILFE='Ich verstehe diese Befehle: status, positionen, kurs btc, markt, news, start, stopp, stop-loss 1,5, take-profit 3, hebel 3, tagesmuster, wissen: dein Text. Freie Fragen kann ich noch nicht beantworten.';
+function chatSend(){
+  const inp=$('ci'),raw=inp.value.trim();if(!raw)return;
+  inp.value='';
+  S.msgs.unshift({t:now(),title:'Du',text:raw,you:true});
+  const who=/^bot\s*1/i.test(raw)?1:/^bot\s*2/i.test(raw)?2:0;
+  const txt=raw.replace(/^bot\s*[12]\s*[:,]?\s*/i,'').trim(),l=txt.toLowerCase();
+  const r=(n,t)=>say('Bot '+n+' (Chat)',t);
+  const setP=(k,v,name)=>{v=parseFloat(String(v).replace(',','.'));if(v>=.5&&v<=10){S.set[k]=v;r(1,name+' steht jetzt auf '+String(v).replace('.',',')+' %. Das gilt für neue Trades.')}else r(1,'Bitte nenne einen Wert zwischen 0,5 und 10.')};
+  let m;
+  if(m=txt.match(/^(?:wissen|merke|merk dir|lerne)\s*:?\s*(.+)/i)){
+    S.wissen.push({t:'Notiz aus dem Chat',q:'Chat, '+now()+' Uhr',n:[m[1].slice(0,200)],p:{}});S.wissen=S.wissen.slice(-20);
+    r(2,'Gemerkt. Die Notiz steht jetzt im Tab Wissen.');
+  }else if(m=l.match(/stop.?loss\D{0,6}(\d+(?:[.,]\d+)?)/))setP('sl',m[1],'Der Stop-Loss');
+  else if(m=l.match(/take.?profit\D{0,6}(\d+(?:[.,]\d+)?)/))setP('tp',m[1],'Der Take-Profit');
+  else if(m=l.match(/hebel\D{0,6}(\d+)/)){const v=parseInt(m[1]);if(v>=1&&v<=10){S.set.lev=v;r(1,'Der höchste Hebel steht jetzt auf '+v+'x. Das gilt für neue Trades.')}else r(1,'Bitte nenne einen Hebel zwischen 1 und 10.')}
+  else if(/tagesmuster|gestern/.test(l)){const d=S.days[0];r(2,d?d.date.split('-').reverse().join('.')+': '+d.up+' von '+d.rows.length+' Coins im Plus. '+d.rows.map(x=>x.s+' '+pc(x.chg)+(x.pat?' ('+x.pat+')':'')).join(', ')+'.':'Es gibt noch kein Tagesmuster. Ich lade die Tageskerzen, sobald Live-Daten laufen.')}
+  else if(/^(status|stand|wie l[aä]uft)/.test(l)){const d=equity()-START;r(1,'Gesamtwert '+eur(equity())+' ('+(d>=0?'+':'')+eur(d)+'). Offen: '+S.pos.length+', abgeschlossen: '+S.hist.length+'. Die Bots '+(running?'laufen':'sind pausiert')+'.')}
+  else if(/positionen|trades|offen/.test(l))r(1,S.pos.length?S.pos.map(p=>sym(p.id)+' '+(p.dir>0?'Long':'Short')+' ab '+pr(p.entry)+' ('+pc(p.dir*(price[p.id]/p.entry-1)*100*(p.lev||1))+')'+(p.lev>1?' '+p.lev+'x':'')).join('; ')+'.':'Es ist keine Position offen.');
+  else if(/^(kurs|preis)/.test(l)){const c=COINS.find(k=>l.includes(k.s.toLowerCase()));r(1,c?c.s+': '+pr(price[c.id])+(chg24[c.id]!=null?' ('+pc(chg24[c.id])+' in 24 Stunden)':''):COINS.map(k=>k.s+' '+pr(price[k.id])).join(', ')+'.')}
+  else if(/^(start|starte)/.test(l)){if(!running){running=true;if(live){market();news();candles()}}r(1,'Die Bots laufen.')}
+  else if(/^(stopp|pause|pausiere|stop(?![\s-]*loss))/.test(l)){running=false;r(1,'Die Bots sind pausiert.')}
+  else if(/markt|lage|vergleich/.test(l)){r(2,breadthText(analyze()));if(live)market()}
+  else if(/news|nachricht/.test(l)){if(live){news();r(2,'Ich suche die neuesten Meldungen.')}else r(2,'Nachrichten gibt es nur mit Live-Daten.')}
+  else if(/hilfe|^\?$/.test(l))r(2,HILFE);
+  else r(who||2,'Das habe ich nicht verstanden. Schreib „hilfe“, dann siehst du meine Befehle.');
+  save();render();scrollTo(0,document.body.scrollHeight);
+}
+$('cs').onclick=chatSend;
+$('ci').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();chatSend()}};
+function showTab(v){
+  tab=v;
+  ['v1','v2','v3','v4','v5'].forEach(x=>$(x).hidden=x!==v);
+  [...$('tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.v===v));
+  if(v==='v3')unread=0;
+  $('ttl').textContent={v1:'Bot-Terminal',v2:'Signale',v3:'Chat',v4:'Wissen',v5:'Bots'}[v];
+  $('hs').hidden=v!=='v1';
+  render();scrollTo(0,v==='v3'?document.body.scrollHeight:0);
+}
+$('tabs').onclick=ev=>{const b=ev.target.closest('button');if(!b)return;if(b.dataset.v==='v5')sel=null;showTab(b.dataset.v)};
+$('bots').onclick=ev=>{const b=ev.target.closest('button');if(!b)return;sel=b.dataset.b;showTab('v5')};
+$('bl').onclick=ev=>{
   const b=ev.target.closest('button');if(!b)return;
-  tab=b.dataset.v;
-  ['v1','v2','v3','v4'].forEach(v=>$(v).hidden=v!==tab);
-  [...$('tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.v===tab));
-  if(tab==='v3')unread=0;
-  render();
+  const a=b.dataset.a;
+  if(b.dataset.b)sel=b.dataset.b;
+  else if(a==='back')sel=null;
+  else if(a==='tg'){S.on[sel]=!S.on[sel]}
+  else if(STEP[a]){const [lo,hi,def]=STEP[a],cur=S.set[a]??P()[a]??def;S.set[a]=Math.min(hi,Math.max(lo,Math.round((cur+(+b.dataset.d))*10)/10))}
+  else if(a==='del'){S.bots.splice(+sel.slice(1),1);sel=null}
+  save();render();if(a==='back'||b.dataset.b)scrollTo(0,0);
+};
+$('open').onclick=ev=>{
+  const b=ev.target.closest('button');if(!b)return;
+  const p=S.pos[+b.dataset.c];if(!p)return;
+  const v=val(p);S.cash+=v;S.hist.unshift({id:p.id,dir:p.dir,pnl:v-p.size,r:0});S.pos.splice(+b.dataset.c,1);
+  say('System',sym(p.id)+' von Hand geschlossen: '+(v-p.size>=0?'Gewinn ':'Verlust ')+eur(v-p.size)+'.');
+  save();render();
 };
 
 (async()=>{live=await fetchLive();render();setInterval(tick,2000)})();
